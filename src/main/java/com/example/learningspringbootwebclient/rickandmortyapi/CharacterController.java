@@ -11,7 +11,10 @@ import java.util.List;
 public class CharacterController {
     private final CharacterService characterService;
     @GetMapping
-    public List<Character> getAllCharacters(){
+    public List<Character> getAllCharacters(@RequestParam int page){
+        if(page!=0) {
+            return characterService.getAllCharacters(page);
+        }
         return characterService.getAllCharacters();
     }
 

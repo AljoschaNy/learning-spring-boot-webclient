@@ -12,6 +12,21 @@ public class CharacterService {
     private static final String BASE_URL = "https://rickandmortyapi.com/api/character";
     private final WebClient webClient = WebClient.builder().baseUrl(BASE_URL).build();
 
+    public List<Character> getAllCharacters(int page){
+        if(page < 0) {
+            return null;
+        }
+        ApiResponse response = Objects.requireNonNull(webClient
+                        .get()
+                        .uri(uriBuilder -> uriBuilder.queryParam("page",page)
+                                .build())
+                        .retrieve()
+                        .toEntity(ApiResponse.class)
+                        .block())
+                .getBody();
+        assert response != null;
+        return response.results();
+    }
     public List<Character> getAllCharacters(){
         ApiResponse response = Objects.requireNonNull(webClient
                         .get()
