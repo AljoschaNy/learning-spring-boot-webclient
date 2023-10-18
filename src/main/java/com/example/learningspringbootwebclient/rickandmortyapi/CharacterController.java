@@ -27,4 +27,9 @@ public class CharacterController {
     public List<Character> findCharactersByStatus(@RequestParam String status) {
         return characterService.findCharactersByStatus(status);
     }
+
+    @GetMapping("/species-statistic")
+    public int getTotalAmountOfCharactersBySpecies(@RequestParam String specie) {
+        return characterService.getTotalAmountOfCharactersBySpecies(specie);
+    }
 }

@@ -64,4 +64,17 @@ public class CharacterService {
         assert response != null;
         return response.results();
     }
+
+    public int getTotalAmountOfCharactersBySpecies(String specie) {
+        ApiResponse response = Objects.requireNonNull(webClient
+                        .get()
+                        .uri(uriBuilder -> uriBuilder.queryParam("species", specie)
+                                .build())
+                        .retrieve()
+                        .toEntity(ApiResponse.class)
+                        .block())
+                .getBody();
+        assert response != null;
+        return response.info().count();
+    }
 }
