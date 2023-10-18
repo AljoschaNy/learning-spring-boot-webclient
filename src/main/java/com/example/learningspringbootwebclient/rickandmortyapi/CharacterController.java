@@ -23,9 +23,9 @@ public class CharacterController {
         return characterService.getCharacterById(id);
     }
 
-    @GetMapping("/status")
-    public List<Character> findCharactersByStatus(@RequestParam String status) {
-        return characterService.findCharactersByStatus(status);
+    @GetMapping("/species")
+    public List<Character> findCharactersByStatus(@RequestParam String species) {
+        return characterService.findCharactersBySpecies(species);
     }
 
     @GetMapping("/species-statistic")

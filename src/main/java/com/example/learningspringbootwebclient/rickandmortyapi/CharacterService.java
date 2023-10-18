@@ -56,10 +56,10 @@ public class CharacterService {
         return response;
     }
 
-    public List<Character> findCharactersByStatus(String status) {
+    public List<Character> findCharactersBySpecies(String species) {
         ApiResponse response = Objects.requireNonNull(webClient
                         .get()
-                        .uri(uriBuilder -> uriBuilder.queryParam("status",status)
+                        .uri(uriBuilder -> uriBuilder.queryParam("species",species)
                                 .build())
                         .retrieve()
                         .toEntity(ApiResponse.class)

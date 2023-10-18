@@ -88,7 +88,28 @@ class CharacterControllerTest {
     }
 
     @Test
-    void findCharactersByStatus() {
+    void findCharactersBySpecies() throws Exception {
+        List<Character> characters = List.of(
+                new Character(1, "test", "human"),
+                new Character(2, "tes2", "human"),
+                new Character(3, "tes3", "tes3")
+        );
+
+        List<Character> expected = List.of(
+                new Character(1, "test", "human"),
+                new Character(2, "tes2", "human")
+        );
+        String expectedAsJson = objectMapper.writeValueAsString(expected);
+
+        MockResponse response = new MockResponse();
+        response.setBody(objectMapper.writeValueAsString(new ApiResponse(new ApiInfo(2), expected)));
+        response.addHeader("Content-Type","application/json");
+
+        mockWebServer.enqueue(response);
+
+        mockMvc.perform(get("/api/characters/species?species=human"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(expectedAsJson));
     }
 
     @Test
