@@ -19,4 +19,9 @@ public class CharacterController {
     public Character getCharacterById(@PathVariable int id) {
         return characterService.getCharacterById(id);
     }
+
+    @GetMapping("/")
+    public List<Character> findCharactersByStatus(@RequestParam String status) {
+        return characterService.findCharactersByStatus(status);
+    }
 }

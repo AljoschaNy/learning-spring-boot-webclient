@@ -35,4 +35,18 @@ public class CharacterService {
         assert response != null;
         return response;
     }
+
+    public List<Character> findCharactersByStatus(String status) {
+        ApiResponse response = Objects.requireNonNull(webClient
+                        .get()
+                        .uri(uriBuilder -> uriBuilder.queryParam("status",status)
+                                .build())
+                        .retrieve()
+                        .toEntity(ApiResponse.class)
+                        .block())
+                .getBody();
+
+        assert response != null;
+        return response.results();
+    }
 }
