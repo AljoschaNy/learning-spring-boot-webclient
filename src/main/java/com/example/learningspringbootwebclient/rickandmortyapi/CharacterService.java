@@ -22,4 +22,17 @@ public class CharacterService {
         assert response != null;
         return response.results();
     }
+
+    public Character getCharacterById(int id){
+        Character response = Objects.requireNonNull(webClient
+                        .get()
+                        .uri(uriBuilder -> uriBuilder.pathSegment("/" + id)
+                                .build())
+                        .retrieve()
+                        .toEntity(Character.class)
+                        .block())
+                .getBody();
+        assert response != null;
+        return response;
+    }
 }
