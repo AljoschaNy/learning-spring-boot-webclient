@@ -23,7 +23,7 @@ public class CharacterController {
         return characterService.getCharacterById(id);
     }
 
-    @GetMapping("/")
+    @GetMapping("/status")
     public List<Character> findCharactersByStatus(@RequestParam String status) {
         return characterService.findCharactersByStatus(status);
     }
