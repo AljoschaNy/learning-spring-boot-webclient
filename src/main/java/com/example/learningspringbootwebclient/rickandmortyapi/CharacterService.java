@@ -78,3 +78,4 @@ public class CharacterService {
         return response.info().count();
     }
 }
+
