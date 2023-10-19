@@ -11,9 +11,9 @@ import java.util.List;
 public class CharacterController {
     private final CharacterService characterService;
     @GetMapping
-    public List<Character> getAllCharacters(@RequestParam int page){
-        if(page!=0) {
-            return characterService.getAllCharacters(page);
+    public List<Character> getAllCharacters(@RequestParam(required=false) String page){
+        if(page!=null) {
+            return characterService.getAllCharacters(Integer.parseInt(page));
         }
         return characterService.getAllCharacters();
     }
@@ -23,9 +23,9 @@ public class CharacterController {
         return characterService.getCharacterById(id);
     }
 
-    @GetMapping("/status")
-    public List<Character> findCharactersByStatus(@RequestParam String status) {
-        return characterService.findCharactersByStatus(status);
+    @GetMapping("/species")
+    public List<Character> findCharactersByStatus(@RequestParam String species) {
+        return characterService.findCharactersBySpecies(species);
     }
 
     @GetMapping("/species-statistic")

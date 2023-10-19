@@ -1,5 +1,6 @@
 package com.example.learningspringbootwebclient.rickandmortyapi;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -9,8 +10,12 @@ import java.util.Objects;
 
 @Service
 public class CharacterService {
-    private static final String BASE_URL = "https://rickandmortyapi.com/api/character";
-    private final WebClient webClient = WebClient.builder().baseUrl(BASE_URL).build();
+
+    private final WebClient webClient;
+    public CharacterService(@Value("${rickandmorty.characters.baseUrl}")String baseUrl){
+        this.webClient = WebClient.builder().baseUrl(baseUrl).build();
+    }
+
 
     public List<Character> getAllCharacters(int page){
         if(page < 0) {
@@ -51,10 +56,10 @@ public class CharacterService {
         return response;
     }
 
-    public List<Character> findCharactersByStatus(String status) {
+    public List<Character> findCharactersBySpecies(String species) {
         ApiResponse response = Objects.requireNonNull(webClient
                         .get()
-                        .uri(uriBuilder -> uriBuilder.queryParam("status",status)
+                        .uri(uriBuilder -> uriBuilder.queryParam("species",species)
                                 .build())
                         .retrieve()
                         .toEntity(ApiResponse.class)
@@ -78,3 +83,4 @@ public class CharacterService {
         return response.info().count();
     }
 }
+
